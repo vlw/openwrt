@@ -2,10 +2,11 @@ PKG_DRIVERS += \
 	rtl8180 rtl8187 \
 	rtlwifi rtlwifi-pci rtlwifi-btcoexist rtlwifi-usb rtl8192c-common \
 	rtl8192ce rtl8192se rtl8192de rtl8192cu rtl8723bs rtl8821ae \
-	rtl8xxxu rtw88
+	rtl8xxxu rtw88 uwe5622
 
 config-$(call config_package,rtl8180) += RTL8180
 config-$(call config_package,rtl8187) += RTL8187
+config-$(call config_package,uwe5622) += UWE5622
 
 config-$(call config_package,rtlwifi) += RTL_CARDS RTLWIFI
 config-$(call config_package,rtlwifi-pci) += RTLWIFI_PCI
@@ -221,4 +222,15 @@ define KernelPackage/rtl8723bs/description
  This option enables support for RTL8723BS SDIO drivers, such as the wifi found
  on the 1st gen Intel Compute Stick, the CHIP and many other Intel Atom and ARM
  based devices.
+endef
+
+
+define KernelPackage/uwe5622
+  $(call KernelPackage/mac80211/Default)
+  TITLE:= UWE5622(AW562A) Wireless Driver
+  DEPENDS+= +kmod-mac80211 +kmod-mmc
+  FILES:= \
+  $(PKG_BUILD_DIR)/drivers/net/wireless/uwe5622/unisocwifi/sprdwl_ng.ko \
+  $(PKG_BUILD_DIR)/drivers/net/wireless/uwe5622/unisocwcn/uwe5622_bsp_sdio.ko
+  AUTOLOAD:=$(call AutoProbe,sprdwl_ng)
 endef
