@@ -9,9 +9,9 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_VERSION:=2020.07
+PKG_VERSION:=2021.04
 
-PKG_HASH:=c1f5bf9ee6bb6e648edbf19ce2ca9452f614b08a9f886f1a566aa42e8cf05f6a
+PKG_HASH:=0d438b1bb5cceb57a18ea2de4a0d51f7be5b05b98717df05938636e0aadfe11a
 
 PKG_MAINTAINER:=Zoltan HERPAI <wigyori@uid0.hu>
 
@@ -320,6 +320,15 @@ define U-Boot/orangepi_pc2
   DEPENDS:=+PACKAGE_u-boot-orangepi_pc2:trusted-firmware-a-sunxi-a64
   UENV:=a64
   ATF:=a64
+endef
+
+define U-Boot/orangepi_zero2
+  BUILD_SUBTARGET:=cortexa53
+  NAME:=Xunlong Orange Pi Zero2
+  BUILD_DEVICES:=xunlong_orangepi-zero2
+  DEPENDS:=+PACKAGE_u-boot-orangepi_zero2:arm-trusted-firmware-sunxi-h616
+  UENV:=h616
+  ATF:=h616
 endef
 
 define U-Boot/Bananapi_M2_Ultra
