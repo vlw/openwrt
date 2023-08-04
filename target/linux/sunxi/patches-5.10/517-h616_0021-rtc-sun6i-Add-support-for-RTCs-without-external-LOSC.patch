@@ -21,8 +21,7 @@ diff --git a/drivers/rtc/rtc-sun6i.c b/drivers/rtc/rtc-sun6i.c
 index 54bd47fb0a5f..1fabb3c69041 100644
 --- a/drivers/rtc/rtc-sun6i.c
 +++ b/drivers/rtc/rtc-sun6i.c
-@@ -134,6 +134,7 @@ struct sun6i_rtc_clk_data {
- 	unsigned int export_iosc : 1;
+@@ -134,5 +134,6 @@ struct sun6i_rtc_clk_data {
  	unsigned int has_losc_en : 1;
  	unsigned int has_auto_swt : 1;
 +	unsigned int no_ext_losc : 1;
