@@ -13,7 +13,7 @@ new file mode 100644
 index 000000000000..814f5b4fec7c
 --- /dev/null
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616-orangepi-zero2.dts
-@@ -0,0 +1,228 @@ 
+@@ -0,0 +1,256 @@
 +// SPDX-License-Identifier: (GPL-2.0+ or MIT)
 +/*
 + * Copyright (C) 2020 Arm Ltd.
@@ -44,13 +44,13 @@ index 000000000000..814f5b4fec7c
 +
 +		power {
 +			label = "orangepi:red:power";
-+			gpios = <&pio 2 13 GPIO_ACTIVE_HIGH>; /* PC13 */
++			gpios = <&pio 2 12 GPIO_ACTIVE_HIGH>; /* PC12 */
 +			default-state = "on";
 +		};
 +
 +		status {
 +			label = "orangepi:green:status";
-+			gpios = <&pio 2 12 GPIO_ACTIVE_HIGH>; /* PC12 */
++			gpios = <&pio 2 13 GPIO_ACTIVE_HIGH>; /* PC13 */
 +		};
 +	};
 +
@@ -82,6 +82,14 @@ index 000000000000..814f5b4fec7c
 +	status = "okay";
 +};
 +
++&ehci2 {
++	status = "okay";
++};
++
++&ehci3 {
++	status = "okay";
++};
++
 +/* USB 2 & 3 are on headers only. */
 +
 +&emac0 {
@@ -106,6 +114,7 @@ index 000000000000..814f5b4fec7c
 +	vmmc-supply = <&reg_dcdce>;
 +	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
 +	bus-width = <4>;
++	max-frequency = <50000000>;
 +	status = "okay";
 +};
 +
@@ -114,6 +123,14 @@ index 000000000000..814f5b4fec7c
 +};
 +
 +&ohci1 {
++	status = "okay";
++};
++
++&ohci2 {
++	status = "okay";
++};
++
++&ohci3 {
 +	status = "okay";
 +};
 +
@@ -149,12 +166,14 @@ index 000000000000..814f5b4fec7c
 +			};
 +
 +			reg_aldo2: aldo2 {
++				regulator-always-on;
 +				regulator-min-microvolt = <3300000>;
 +				regulator-max-microvolt = <3300000>;
 +				regulator-name = "vcc3v3-ext";
 +			};
 +
 +			reg_aldo3: aldo3 {
++				regulator-always-on;
 +				regulator-min-microvolt = <3300000>;
 +				regulator-max-microvolt = <3300000>;
 +				regulator-name = "vcc3v3-ext2";
@@ -194,26 +213,26 @@ index 000000000000..814f5b4fec7c
 +			reg_dcdca: dcdca {
 +				regulator-always-on;
 +				regulator-min-microvolt = <810000>;
-+				regulator-max-microvolt = <1080000>;
++				regulator-max-microvolt = <1100000>;
 +				regulator-name = "vdd-cpu";
 +			};
 +
 +			reg_dcdcc: dcdcc {
 +				regulator-always-on;
 +				regulator-min-microvolt = <810000>;
-+				regulator-max-microvolt = <1080000>;
++				regulator-max-microvolt = <1100000>;
 +				regulator-name = "vdd-gpu-sys";
 +			};
 +
 +			reg_dcdcd: dcdcd {
 +				regulator-always-on;
-+				regulator-min-microvolt = <1500000>;
-+				regulator-max-microvolt = <1500000>;
++				regulator-min-microvolt = <1400000>;
++				regulator-max-microvolt = <1400000>;
 +				regulator-name = "vdd-dram";
 +			};
 +
 +			reg_dcdce: dcdce {
-+				regulator-boot-on;
++				regulator-always-on;
 +				regulator-min-microvolt = <3300000>;
 +				regulator-max-microvolt = <3300000>;
 +				regulator-name = "vcc-eth-mmc";
@@ -240,5 +259,14 @@ index 000000000000..814f5b4fec7c
 +&usbphy {
 +	usb0_vbus-supply = <&reg_vcc5v>;
 +	usb1_vbus-supply = <&reg_usb1_vbus>;
++	status = "okay";
++};
++
++&rtc {
++	status = "okay";
++};
++
++&cpu0 {
++	cpu-supply = <&reg_dcdca>;
 +	status = "okay";
 +};
